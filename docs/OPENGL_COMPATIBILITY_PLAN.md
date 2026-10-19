@@ -35,3 +35,22 @@ Record logs and device/GPU details for each test. Do not claim support until the
 
 ## Current status
 **Planning only.** The current Android app selects a game folder and checks for `Blur.exe`. It does not include Wine, Box64, WineD3D or a game execution bridge. No working Blur-on-Android result has been verified.
+
+
+## Automatic device detection implementation
+
+The launcher now contains a best-effort capability probe that reports:
+- supported CPU ABIs and whether `arm64-v8a` is present;
+- Android API level and total/available RAM;
+- OpenGL ES version, vendor and renderer when the temporary EGL context succeeds;
+- whether Android advertises Vulkan hardware support and Vulkan 1.1;
+- candidate rendering paths and caution notes.
+
+This is a diagnostic foundation, **not yet an automatic runtime selector**. A reliable selector must query the actual bundled runtime components and driver compatibility, run a small renderer smoke test, save the last known-good profile, and fall back after a failed launch. Android's feature flags alone cannot prove DXVK or WineD3D will work with Blur. No renderer/runtime binaries are bundled by this change.
+
+
+## Runtime preflight status
+
+The launcher now calls a conservative runtime preflight. It checks for explicit runtime component files/markers before selecting a renderer; it will not infer that DXVK or WineD3D is installed from Vulkan/OpenGL support alone. On the current project branch, Wine, Box64, DXVK and WineD3D are not bundled, so the correct status is **not ready to launch**.
+
+This is intentionally not described as full runtime integration. The actual engine integration still requires choosing a legally distributable, reproducible Android runtime build; packaging native components for supported ABIs; bridging process startup, filesystem access, input and audio; and validating Blur on physical devices. Do not add placeholder marker assets to make preflight pass.

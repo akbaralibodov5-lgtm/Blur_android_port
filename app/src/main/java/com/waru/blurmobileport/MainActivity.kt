@@ -183,6 +183,29 @@ class MainActivity : Activity() {
         perf.addView(tags)
         page.addView(perf, marginTop(10))
 
+        page.addView(sectionTitle("DEVICE COMPATIBILITY"), marginTop(26))
+        val compatibilityCard = card(panel).apply {
+            orientation = LinearLayout.VERTICAL
+            setPadding(dp(16), dp(16), dp(16), dp(16))
+        }
+        compatibilityCard.addView(label("Automatic hardware detection", 15f, textPrimary, true))
+        compatibilityCard.addView(label(
+            "Reads CPU ABI, Android version, RAM, OpenGL ES renderer and advertised Vulkan support. It suggests possible paths; it cannot confirm Blur compatibility until the actual runtime is integrated.",
+            12f, textMuted, false
+        ).apply { setPadding(0, dp(7), 0, dp(10)) })
+        val compatibilityDetails = label("Checking device capabilities...", 11f, textMuted, false)
+        compatibilityCard.addView(compatibilityDetails)
+        page.addView(compatibilityCard, marginTop(10))
+        compatibilityDetails.text = DeviceCompatibility.inspect(this).toDisplayText()
+        val runtimePreflight = RuntimeBootstrap.inspect(this)
+        compatibilityDetails.append("\n\nRUNTIME PREFLIGHT\n")
+        compatibilityDetails.append("Wine: ${if (runtimePreflight.winePresent) "detected" else "missing"} · ")
+        compatibilityDetails.append("Box64: ${if (runtimePreflight.box64Present) "detected" else "missing"}\n")
+        compatibilityDetails.append("DXVK: ${if (runtimePreflight.dxvkPresent) "detected" else "missing"} · ")
+        compatibilityDetails.append("WineD3D: ${if (runtimePreflight.wineD3dPresent) "detected" else "missing"}\n")
+        compatibilityDetails.append("Selected path: ${runtimePreflight.selectedRenderer.displayName}\n")
+        compatibilityDetails.append(runtimePreflight.explanation)
+
         page.addView(sectionTitle("IMPORTANT"), marginTop(26))
         val notice = card(Color.rgb(35, 29, 22)).apply {
             orientation = LinearLayout.VERTICAL
