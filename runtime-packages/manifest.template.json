@@ -1,0 +1,55 @@
+{
+  "schemaVersion": 1,
+  "runtimeId": "winlator-blur-arm64",
+  "runtimeVersion": "UNSET",
+  "status": "template-not-runnable",
+  "upstream": {
+    "repository": "https://github.com/brunodev85/winlator",
+    "revision": "UNSET_IMMUTABLE_COMMIT_OR_TAG"
+  },
+  "license": {
+    "runtimeLicense": "REVIEW_UPSTREAM_LICENSE",
+    "noticesRelativePath": "licenses/"
+  },
+  "target": {
+    "androidAbis": ["arm64-v8a"],
+    "linuxUserspace": "UNSET",
+    "gameArchitectures": ["x86", "x86_64"]
+  },
+  "components": {
+    "box64": {
+      "relativePath": "usr/bin/box64",
+      "version": "UNSET",
+      "sha256": "UNSET"
+    },
+    "wine": {
+      "loaderRelativePath": "wine/bin/wine",
+      "version": "UNSET",
+      "sha256": "UNSET"
+    },
+    "rootfsRelativePath": "rootfs/",
+    "graphics": {
+      "dxvk": {
+        "available": false,
+        "version": "UNSET",
+        "dll32RelativePath": "graphics/dxvk/x32/",
+        "dll64RelativePath": "graphics/dxvk/x64/"
+      },
+      "wined3d": {
+        "available": false,
+        "source": "must-match-selected-wine-build"
+      }
+    }
+  },
+  "tested": {
+    "devices": [],
+    "direct3dSmokeTest": false,
+    "blurMenu": false,
+    "fullRace": false
+  },
+  "limitations": [
+    "Template only; not a runnable runtime package.",
+    "Replace all UNSET values after selecting and auditing a redistributable build.",
+    "Do not set tested flags to true without recorded device test results."
+  ]
+}
