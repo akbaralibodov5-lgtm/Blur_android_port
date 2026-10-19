@@ -197,6 +197,14 @@ class MainActivity : Activity() {
         compatibilityCard.addView(compatibilityDetails)
         page.addView(compatibilityCard, marginTop(10))
         compatibilityDetails.text = DeviceCompatibility.inspect(this).toDisplayText()
+        val runtimePreflight = RuntimeBootstrap.inspect(this)
+        compatibilityDetails.append("\n\nRUNTIME PREFLIGHT\n")
+        compatibilityDetails.append("Wine: ${if (runtimePreflight.winePresent) "detected" else "missing"} · ")
+        compatibilityDetails.append("Box64: ${if (runtimePreflight.box64Present) "detected" else "missing"}\n")
+        compatibilityDetails.append("DXVK: ${if (runtimePreflight.dxvkPresent) "detected" else "missing"} · ")
+        compatibilityDetails.append("WineD3D: ${if (runtimePreflight.wineD3dPresent) "detected" else "missing"}\n")
+        compatibilityDetails.append("Selected path: ${runtimePreflight.selectedRenderer.displayName}\n")
+        compatibilityDetails.append(runtimePreflight.explanation)
 
         page.addView(sectionTitle("IMPORTANT"), marginTop(26))
         val notice = card(Color.rgb(35, 29, 22)).apply {
