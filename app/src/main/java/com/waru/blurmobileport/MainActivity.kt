@@ -190,7 +190,7 @@ class MainActivity : Activity() {
         }
         notice.addView(label("Game engine not integrated", 14f, amber, true))
         notice.addView(label(
-            "This launcher currently checks your files only. It does not run Blur.exe yet. A compatible Windows runtime and DirectX translation layer must be integrated and tested before gameplay is possible.",
+            "This launcher currently checks your files only. It does not run Blur.exe yet. A compatible Windows runtime and Direct3D-to-OpenGL layer (WineD3D candidate) must be integrated and tested before gameplay is possible.",
             12f, Color.rgb(220, 202, 176), false
         ).apply { setPadding(0, dp(7), 0, 0) })
         page.addView(notice, marginTop(10))
