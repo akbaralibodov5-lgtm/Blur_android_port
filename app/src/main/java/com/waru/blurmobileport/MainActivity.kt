@@ -147,9 +147,9 @@ class MainActivity : Activity() {
             setPadding(dp(16), 0, dp(16), 0)
             setOnClickListener { chooseGameFolder() }
         }
-        page.addView(chooseButton, marginTop(14), LinearLayout.LayoutParams(
+        page.addView(chooseButton, LinearLayout.LayoutParams(
             ViewGroup.LayoutParams.MATCH_PARENT, dp(54)
-        ))
+        ).apply { topMargin = dp(14) })
 
         forgetButton = Button(this).apply {
             text = "Forget saved folder"
@@ -159,9 +159,9 @@ class MainActivity : Activity() {
             background = rounded(panel, 12)
             setOnClickListener { forgetFolder() }
         }
-        page.addView(forgetButton, marginTop(8), LinearLayout.LayoutParams(
+        page.addView(forgetButton, LinearLayout.LayoutParams(
             ViewGroup.LayoutParams.MATCH_PARENT, dp(46)
-        ))
+        ).apply { topMargin = dp(8) })
 
         page.addView(sectionTitle("PERFORMANCE FIRST"), marginTop(26))
         val perf = card(panel).apply {
