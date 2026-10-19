@@ -15,3 +15,7 @@ android {
         versionName = "0.1.0"
     }
 }
+
+dependencies {
+    implementation("androidx.documentfile:documentfile:1.0.1")
+}
